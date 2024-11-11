@@ -47,7 +47,10 @@ public class Principal {
     }
 
     private void buscarMusicasPorArtista() {
-        System.out.println("Não implementado.");
+        System.out.println("Buscar músicas de que artista? ");
+        final String nomeArtista = sc.nextLine();
+        final List<Musica> musicas = artistaRepository.buscaMusicasPorArtista(nomeArtista);
+        musicas.forEach(System.out::println);
     }
 
     private void listarMusicas() {
