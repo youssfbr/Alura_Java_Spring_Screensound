@@ -24,6 +24,11 @@ public class Artista {
 
     public Artista() {}
 
+    public Artista(String nomeArtista , TipoArtista tipoArtista) {
+        nome = nomeArtista;
+        tipo = tipoArtista;
+    }
+
     public Long getId() {
         return id;
     }

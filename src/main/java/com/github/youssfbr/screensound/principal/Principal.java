@@ -1,5 +1,8 @@
 package com.github.youssfbr.screensound.principal;
 
+import com.github.youssfbr.screensound.models.Artista;
+import com.github.youssfbr.screensound.models.enums.TipoArtista;
+import com.github.youssfbr.screensound.repositories.IArtistaRepository;
 import com.github.youssfbr.screensound.utils.Mensagens;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +12,12 @@ import java.util.Scanner;
 @Service
 public class Principal {
 
+    private IArtistaRepository artistaRepository;
     private final Scanner sc = new Scanner(System.in);
+
+    public Principal(IArtistaRepository artistaRepository) {
+        this.artistaRepository = artistaRepository;
+    }
 
     public void exibeMenu() {
         int opcao = -1;
@@ -48,6 +56,19 @@ public class Principal {
     }
 
     private void cadastrarArtistas() {
-        System.out.println("Não implementado.");
+        String cadastrarNovoArtista = "S";
+
+        while (cadastrarNovoArtista.equalsIgnoreCase("s")) {
+            System.out.println("Informe o nome do Artista: ");
+            final String nomeArtista = sc.nextLine();
+            System.out.println("Informe o tipo do Artista: (solo, dupla ou banda)");
+            final String tipo = sc.nextLine();
+            final TipoArtista tipoArtista = TipoArtista.valueOf(tipo.toUpperCase());
+            final Artista artista = new Artista(nomeArtista , tipoArtista);
+            artistaRepository.save(artista);
+            System.out.println("Cadastrar novo artista? (S/N) ");
+            cadastrarNovoArtista = sc.nextLine();
+        }
+
     }
 }
