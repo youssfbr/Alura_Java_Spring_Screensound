@@ -1,11 +1,14 @@
 package com.github.youssfbr.screensound.principal;
 
 import com.github.youssfbr.screensound.models.Artista;
+import com.github.youssfbr.screensound.models.Musica;
 import com.github.youssfbr.screensound.models.enums.TipoArtista;
 import com.github.youssfbr.screensound.repositories.IArtistaRepository;
 import com.github.youssfbr.screensound.utils.Mensagens;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 
@@ -48,11 +51,24 @@ public class Principal {
     }
 
     private void listarMusicas() {
-        System.out.println("Não implementado.");
+        final List<Artista> artistas = artistaRepository.findAll();
+        artistas.forEach(System.out::println);
     }
 
     private void cadastrarMusicas() {
-        System.out.println("Não implementado.");
+        System.out.println("Cadastrar música de que artista? ");
+        final String nomeArtista = sc.nextLine();
+        Optional<Artista> artista = artistaRepository.findByNomeContainingIgnoreCase(nomeArtista);
+        if (artista.isPresent()) {
+            System.out.println("Informa o título da música: ");
+            final String nomeMusica = sc.nextLine();
+            final Musica musica = new Musica(nomeMusica);
+            musica.setArtista(artista.get());
+            artista.get().getMusicas().add(musica);
+            artistaRepository.save(artista.get());
+        } else {
+            System.out.println("Artista não encontrado.");
+        }
     }
 
     private void cadastrarArtistas() {

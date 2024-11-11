@@ -17,6 +17,10 @@ public class Musica {
 
     public Musica() {}
 
+    public Musica(String nomeMusica) {
+        titulo = nomeMusica;
+    }
+
     public Long getId() {
         return id;
     }
@@ -46,7 +50,7 @@ public class Musica {
         return "Musica{" +
                "id=" + id +
                ", titulo='" + titulo + '\'' +
-               ", artista=" + artista +
+               ", artista=" + artista.getNome() +
                '}';
     }
 }
