@@ -4,7 +4,9 @@ import com.github.youssfbr.screensound.models.Artista;
 import com.github.youssfbr.screensound.models.Musica;
 import com.github.youssfbr.screensound.models.enums.TipoArtista;
 import com.github.youssfbr.screensound.repositories.IArtistaRepository;
+import com.github.youssfbr.screensound.services.ConsultaChatGPT;
 import com.github.youssfbr.screensound.utils.Mensagens;
+import com.theokanning.openai.OpenAiHttpException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,7 +45,14 @@ public class Principal {
     }
 
     private void pesquisarDadosDoArtista() {
-        System.out.println("Não implementado.");
+        System.out.println("Pesquisar dados sobre qual artista?");
+        try {
+            final String nome = sc.nextLine();
+            final String resposta = ConsultaChatGPT.obterInformacao(nome);
+            System.out.println(resposta);
+        } catch (OpenAiHttpException e) {
+            System.out.println("Erro: " + e.getMessage());
+        }
     }
 
     private void buscarMusicasPorArtista() {
