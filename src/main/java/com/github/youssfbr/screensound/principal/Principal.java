@@ -53,6 +53,7 @@ public class Principal {
     private void listarMusicas() {
         final List<Artista> artistas = artistaRepository.findAll();
         artistas.forEach(System.out::println);
+        artistas.forEach(a -> a.getMusicas().forEach(System.out::println));
     }
 
     private void cadastrarMusicas() {
